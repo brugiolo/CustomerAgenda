@@ -43,6 +43,12 @@ namespace CustomerAgenda
                 app.UseDeveloperExceptionPage();
             }
 
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<CustomerAgendaContext>();
+                context.Database.Migrate();
+            }
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
