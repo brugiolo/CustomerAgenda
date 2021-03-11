@@ -32,5 +32,5 @@ jobs:
       with:
         app-name: 'brugiolo-customers'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_d3610d9e1a344b0796ce82529222ba6b }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_7b77fa2a2d5f47e1af673c7b5342ad22 }}
         package: ${{env.DOTNET_ROOT}}/myapp 
