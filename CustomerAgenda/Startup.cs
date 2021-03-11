@@ -23,7 +23,7 @@ namespace CustomerAgenda
         {
             services.AddDbContext<CustomerAgendaContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("LocalConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString("LocalDbConnection"));
             });
 
             services.AddAutoMapper(typeof(Startup));
