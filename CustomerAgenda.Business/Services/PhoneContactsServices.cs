@@ -21,7 +21,7 @@ namespace CustomerAgenda.Business.Services
         {
             var phoneContacts = _phoneContactRepository.List().Where(a => a.CustomerId == customerId);
 
-            var customersIds = _customerRepository.List().Where(a => a.HostelId == hostelId).Select(a => a.Id);
+            var customersIds = _customerRepository.List().Where(a => a.HostelKey == hostelId).Select(a => a.Id);
             var hostelPhoneContacts = _phoneContactRepository.List().Where(a => customersIds.Contains(a.CustomerId) && a.Type == PhoneContactType.Local);
 
             return phoneContacts.Concat(hostelPhoneContacts.Except(phoneContacts));

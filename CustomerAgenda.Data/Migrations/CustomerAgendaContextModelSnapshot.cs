@@ -76,7 +76,7 @@ namespace CustomerAgenda.Data.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<Guid>("HostelId")
+                    b.Property<Guid>("HostelKey")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -86,20 +86,7 @@ namespace CustomerAgenda.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HostelId");
-
                     b.ToTable("Customers");
-                });
-
-            modelBuilder.Entity("CustomerAgenda.Business.Models.Hostel", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Hostels");
                 });
 
             modelBuilder.Entity("CustomerAgenda.Business.Models.PhoneContact", b =>
@@ -133,17 +120,6 @@ namespace CustomerAgenda.Data.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("CustomerAgenda.Business.Models.Customer", b =>
-                {
-                    b.HasOne("CustomerAgenda.Business.Models.Hostel", "Hostel")
-                        .WithMany()
-                        .HasForeignKey("HostelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Hostel");
                 });
 
             modelBuilder.Entity("CustomerAgenda.Business.Models.PhoneContact", b =>

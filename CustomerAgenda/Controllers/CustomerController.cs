@@ -15,16 +15,14 @@ namespace CustomerAgenda.Api.Controllers
         private readonly ICustomerService _customerService;
         private readonly IAddressService _addressService;
         private readonly IPhoneContactService _phoneContactService;
-        private readonly IHostelService _hostelService;
         private readonly IMapper _mapper;
 
         public CustomerController(ICustomerService customerService, IAddressService addressService, 
-            IPhoneContactService phoneContactService, IHostelService hostelService, IMapper mapper)
+            IPhoneContactService phoneContactService, IMapper mapper)
         {
             _customerService = customerService;
             _addressService = addressService;
             _phoneContactService = phoneContactService;
-            _hostelService = hostelService;
             _mapper = mapper;
         }
 
@@ -41,9 +39,8 @@ namespace CustomerAgenda.Api.Controllers
         public ActionResult<CustomerViewModel> Read(Guid id)
         {
             var customer = _customerService.Read(id);
-            customer.Hostel = _hostelService.Read(customer.HostelId);
-            customer.Addresses = _addressService.GetAll(customer.Id, customer.HostelId).ToList();
-            customer.PhoneContacts = _phoneContactService.GetAll(customer.Id, customer.HostelId).ToList();
+            customer.Addresses = _addressService.GetAll(customer.Id, customer.HostelKey).ToList();
+            customer.PhoneContacts = _phoneContactService.GetAll(customer.Id, customer.HostelKey).ToList();
 
             return _mapper.Map<CustomerViewModel>(customer);
         }

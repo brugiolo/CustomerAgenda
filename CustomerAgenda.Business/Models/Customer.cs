@@ -6,7 +6,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CustomerAgenda.Business.Models
 {
     public class Customer : Entity
-    {   
+    {
+        [Required]
+        public Guid HostelKey { get; set; }
+
         [Required]
         [MaxLength(200)]
         public string Name { get; set; }
@@ -14,10 +17,6 @@ namespace CustomerAgenda.Business.Models
         [Required]
         [MaxLength(200)]
         public string Email { get; set; }
-
-        public Guid HostelId { get; set; }
-
-        public Hostel Hostel { get; set; }
 
         [NotMapped]
         private List<PhoneContact> _phoneContacts { get; set; }

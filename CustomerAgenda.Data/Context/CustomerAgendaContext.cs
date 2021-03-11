@@ -12,7 +12,6 @@ namespace CustomerAgenda.Data.Context
         public virtual DbSet<Customer> Customers { get; set; }
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<PhoneContact> PhoneContacts { get; set; }
-        public virtual DbSet<Hostel> Hostels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
