@@ -4,6 +4,7 @@ using CustomerAgenda.Business.Interfaces;
 using CustomerAgenda.Business.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CustomerAgenda.Api.Controllers
@@ -29,6 +30,9 @@ namespace CustomerAgenda.Api.Controllers
         [HttpPost]
         public ActionResult Insert(CustomerViewModel customerViewModel)
         {
+            if (_customerService.List().Any(c => c.Email == customerViewModel.Email))
+                return Conflict("There is already a registration with the informed email. Please check and try again.");
+
             var customerModel = _mapper.Map<Customer>(customerViewModel);
             _customerService.Insert(customerModel);
 
@@ -45,6 +49,14 @@ namespace CustomerAgenda.Api.Controllers
             return _mapper.Map<CustomerViewModel>(customer);
         }
 
+        [HttpGet("List")]
+        public ActionResult<IEnumerable<CustomerListViewModel>> List()
+        {
+            var customers = _customerService.List();
+
+            return _mapper.Map<List<CustomerListViewModel>>(customers);
+        }
+
         [HttpDelete("{id}")]
         public ActionResult Delete(Guid id)
         {
@@ -57,6 +69,26 @@ namespace CustomerAgenda.Api.Controllers
             _customerService.Delete(id);
 
             return Ok(CustomerViewModel);
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult Update(Guid id, CustomerViewModel customerViewModel)
+        {
+            if (!ModelState.IsValid || id != customerViewModel.Id)
+                return BadRequest("The informed Id is different from the data. Please check and try again.");
+
+            var customer = _customerService.Read(id);
+
+            if (_customerService.List().Any(c => c.Email == customerViewModel.Email && c.Id != customerViewModel.Id))
+                return Conflict("There is already a registration with the informed email. Please check and try again.");
+
+            customer.Name = customerViewModel.Name;
+            customer.Email = customerViewModel.Email;
+            customer.HostelKey = customer.HostelKey;
+
+            _customerService.Update(customer);
+
+            return Ok();
         }
     }
 }
