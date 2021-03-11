@@ -9,7 +9,7 @@ namespace CustomerAgenda.Api.Configurations
         public AutoMapperConfig()
         {
             CreateMap<Customer, CustomerViewModel>().ReverseMap();
-            CreateMap<Hostel, HostelViewModel>().ReverseMap();
+            CreateMap<Customer, CustomerListViewModel>().ReverseMap();
             CreateMap<Address, AddressViewModel>().ReverseMap();
             CreateMap<PhoneContact, PhoneContacViewModel>().ReverseMap();
         }

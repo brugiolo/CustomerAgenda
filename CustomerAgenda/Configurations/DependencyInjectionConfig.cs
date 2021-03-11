@@ -13,14 +13,12 @@ namespace CustomerAgenda.Api.Configurations
             services.AddScoped<CustomerAgendaContext>();
 
             services.AddScoped<ICustomerRepository, CustomerRepository>();
-            services.AddScoped<IHostelRepository, HostelRepository>();
             services.AddScoped<IPhoneContactRepository, PhoneContactRepository>();
             services.AddScoped<IAddressRepository, AddressRepository>();
 
             services.AddScoped<ICustomerService, CustomerService>();
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IPhoneContactService, PhoneContactService>();
-            services.AddScoped<IHostelService, HostelService>();
 
             services.AddSwaggerGen();
 

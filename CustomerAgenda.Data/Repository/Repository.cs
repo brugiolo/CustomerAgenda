@@ -20,10 +20,7 @@ namespace CustomerAgenda.Data.Repository
 
         public void Insert(TEntity entity)
         {
-            if (DbSet.Find(entity.Id) != null)
-                DbSet.Add(entity);
-            else
-                DbSet.Update(entity);
+            DbSet.Add(entity);
         }
 
         public TEntity Read(Guid id)

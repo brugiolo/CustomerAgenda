@@ -23,7 +23,7 @@ namespace CustomerAgenda
         {
             services.AddDbContext<CustomerAgendaContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("CustomerConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString("AzureConnection"));
             });
 
             services.AddAutoMapper(typeof(Startup));
@@ -41,6 +41,12 @@ namespace CustomerAgenda
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+
+            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetService<CustomerAgendaContext>();
+                context.Database.Migrate();
             }
 
             app.UseHttpsRedirection();
