@@ -23,7 +23,7 @@ namespace CustomerAgenda
         {
             services.AddDbContext<CustomerAgendaContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("LocalDbConnection"));
+                options.UseSqlServer(Configuration.GetConnectionString("AzureConnection"));
             });
 
             services.AddAutoMapper(typeof(Startup));
