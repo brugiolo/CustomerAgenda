@@ -21,7 +21,7 @@ namespace CustomerAgenda.Business.Services
         {
             var customerAddress = _addressRepository.List().Where(a => a.CustomerId == customerId);
             
-            var customersIds = _customerRepository.List().Where(a => a.HostelKey == hostelId).Select(a => a.Id);
+            var customersIds = _customerRepository.List().Where(a => a.HostelKey == hostelId).Select(a => a.Id).ToList();
             var hostelAdsress = _addressRepository.List().Where(a => customersIds.Contains(a.CustomerId));
 
             return customerAddress.Concat(hostelAdsress.Except(customerAddress));
